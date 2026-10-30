@@ -10,6 +10,7 @@
 
 <body>
     <div class="app">
+
         <aside class="sidebar">
             <div class="brand">
                 <div class="brand-icon">⬡</div>
@@ -39,16 +40,19 @@
                     <small>Workspace / <span id="breadcrumb">Dashboard</span></small>
                     <h1 id="page-title">Validation overview</h1>
                 </div>
-                <button class="secondary-btn" id="refresh-btn">↻ Refresh</button>
+                <button class="secondary-btn" type="button" id="refresh-btn">↻ Refresh</button>
             </header>
 
+            <!-- DASHBOARD -->
             <section class="page" id="dashboard-page">
+
                 <div class="hero">
                     <div class="eyebrow">✧ CONTRACT INTELLIGENCE</div>
                     <h2>Know when your API<br><span>breaks its promise.</span></h2>
                     <p>Validate API responses against JSON Schema contracts and catch errors before they reach your
                         users.</p>
-                    <button class="primary-btn" data-go="validate">▶ Run new validation　›</button>
+                    <button class="primary-btn" type="button" data-go="validate">▶ Run new validation　›</button>
+
                     <div class="hero-art">
                         <div class="orbit orbit-one"></div>
                         <div class="orbit orbit-two"></div>
@@ -74,6 +78,11 @@
                         <strong class="fail-text" id="fail-count">0</strong>
                         <small>Issues detected</small>
                     </article>
+                    <article class="stat-card">
+                        <span>Pass rate</span>
+                        <strong class="pass-rate-text" id="pass-rate">0%</strong>
+                        <small>Successful validations</small>
+                    </article>
                 </div>
 
                 <div class="panel">
@@ -82,8 +91,9 @@
                             <h3>Recent validations</h3>
                             <p>Your latest contract checks</p>
                         </div>
-                        <button class="text-btn" data-go="history">View all　›</button>
+                        <button class="text-btn" type="button" data-go="history">View all　›</button>
                     </div>
+
                     <div class="table-wrap">
                         <table>
                             <thead>
@@ -91,12 +101,15 @@
                                     <th>RESULT</th>
                                     <th>ENDPOINT</th>
                                     <th>METHOD</th>
-                                    <th>TIME</th>
+                                    <th>HTTP STATUS</th>
+                                    <th>RESPONSE TIME</th>
+                                    <th>REASON</th>
+                                    <th>DATE</th>
                                 </tr>
                             </thead>
                             <tbody id="recent-table">
                                 <tr>
-                                    <td colspan="4" class="empty">No validations yet. Run your first check!</td>
+                                    <td colspan="7" class="empty">No validations yet. Run your first check!</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -104,6 +117,7 @@
                 </div>
             </section>
 
+            <!-- VALIDATE API -->
             <section class="page hidden" id="validate-page">
                 <div class="panel form-panel">
                     <div class="panel-heading">
@@ -114,9 +128,11 @@
                         <span class="pill">● Validation engine</span>
                     </div>
 
-                    <form id="validation-form">
+                    <!-- Deliberately NOT a form -->
+                    <div id="validation-controls" style="padding:25px;">
+
                         <label for="endpoint">API endpoint URL</label>
-                        <input id="endpoint" type="url" placeholder="http://127.0.0.1:8000/products" required>
+                        <input id="endpoint" type="url" placeholder="http://127.0.0.1:8000/products">
 
                         <div class="form-grid">
                             <div>
@@ -128,6 +144,7 @@
                                     <option>DELETE</option>
                                 </select>
                             </div>
+
                             <div>
                                 <label for="scenario">Demo scenario</label>
                                 <select id="scenario">
@@ -153,12 +170,21 @@
   }
 }</textarea>
 
-                        <button class="primary-btn full-btn" type="submit" id="run-btn">▶ Run validation</button>
-                    </form>
+                        <button class="secondary-btn" type="button" id="generate-schema-btn">
+                            ✨ Generate contract from endpoint
+                        </button>
+
+                        <button class="primary-btn full-btn" type="button" id="run-btn">
+                            ▶ Run validation
+                        </button>
+                    </div>
+
+                    <!-- Result stays outside the controls -->
                     <div id="validation-result" class="result-box hidden"></div>
                 </div>
             </section>
 
+            <!-- HISTORY -->
             <section class="page hidden" id="history-page">
                 <div class="panel">
                     <div class="panel-heading">
@@ -166,8 +192,9 @@
                             <h3>Validation history</h3>
                             <p>Previously recorded validation attempts</p>
                         </div>
-                        <button class="secondary-btn" id="clear-history">Clear history</button>
+                        <button class="secondary-btn" type="button" id="clear-history">Clear history</button>
                     </div>
+
                     <div class="table-wrap">
                         <table>
                             <thead>
@@ -175,12 +202,15 @@
                                     <th>RESULT</th>
                                     <th>ENDPOINT</th>
                                     <th>METHOD</th>
-                                    <th>TIME</th>
+                                    <th>HTTP STATUS</th>
+                                    <th>RESPONSE TIME</th>
+                                    <th>REASON</th>
+                                    <th>DATE</th>
                                 </tr>
                             </thead>
                             <tbody id="history-table">
                                 <tr>
-                                    <td colspan="4" class="empty">No history available.</td>
+                                    <td colspan="7" class="empty">No history available.</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -188,10 +218,12 @@
                 </div>
             </section>
 
+            <!-- DOCUMENTATION -->
             <section class="page hidden" id="docs-page">
                 <div class="panel docs-panel">
                     <div class="eyebrow">PROJECT GUIDE</div>
                     <h2>ContractIQ documentation</h2>
+
                     <p>ContractIQ checks whether an API response follows its expected contract using JSON Schema
                         validation.</p>
 
@@ -200,13 +232,12 @@
                         <li>Enter an API endpoint and choose its HTTP method.</li>
                         <li>Provide a JSON Schema describing the expected response.</li>
                         <li>Run the validation and inspect the PASS or FAIL result.</li>
-                        <li>Review error messages to identify missing fields, incorrect data types, or request errors.
-                        </li>
+                        <li>Review errors to identify missing fields, incorrect data types, or request errors.</li>
                     </ol>
 
                     <h3>Validation history</h3>
-                    <p>Validation attempts are stored in a local SQLite database. The Dashboard displays the total
-                        number of recorded validations, successful validations, and failed validations. The History page
+                    <p>Validation attempts are stored in a local SQLite database. The Dashboard displays total
+                        validations, successful validations, failed validations and the pass rate. The History page
                         displays saved validation records.</p>
 
                     <h3>Demo scenarios</h3>
@@ -230,7 +261,8 @@
             <footer>ContractIQ <span>·</span> API contract validation made clear.</footer>
         </main>
     </div>
-    <script src="script.js"></script>
+
+    <script src="script.js?v=5"></script>
 </body>
 
 </html>

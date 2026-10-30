@@ -717,3 +717,162 @@ footer span {
         margin: 0 20px;
     }
 }
+
+
+/* ==========================================
+   CONTRACTIQ DASHBOARD IMPROVEMENTS
+   ========================================== */
+
+/* 1. Compact hero banner */
+.hero {
+    min-height: 175px;
+    padding: 22px 30px;
+}
+
+.hero h2 {
+    margin: 10px 0 8px;
+    font-size: clamp(25px, 2.5vw, 32px);
+}
+
+.hero>p {
+    max-width: 440px;
+    margin: 8px 0;
+    font-size: 12px;
+    line-height: 1.6;
+}
+
+.hero .primary-btn {
+    margin-top: 8px;
+    padding: 11px 17px;
+}
+
+.hero-art {
+    width: 190px;
+    height: 170px;
+    top: 0;
+}
+
+.orbit {
+    width: 165px;
+    height: 120px;
+}
+
+.orbit-two {
+    width: 130px;
+    height: 165px;
+}
+
+.shield {
+    width: 70px;
+    height: 70px;
+    font-size: 42px;
+    border-radius: 20px;
+}
+
+/* 2. Four statistics cards */
+.stats {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 14px;
+    margin: 17px 0;
+}
+
+.stat-card {
+    padding: 18px;
+}
+
+.stat-card>span {
+    color: #c0cbea;
+    font-size: 13px;
+}
+
+.stat-card strong {
+    margin: 11px 0 7px;
+    font-size: 30px;
+}
+
+.stat-card small {
+    color: #b0bfdd;
+    font-size: 12px;
+}
+
+/* Pass rate styling */
+.pass-rate-text {
+    color: var(--purple-light);
+}
+
+/* 3. Improve table readability */
+th {
+    color: #a9b9dc;
+}
+
+td {
+    color: #d8e2f7;
+    font-size: 12px;
+    line-height: 1.6;
+}
+
+.panel-heading p {
+    color: #b3c2df;
+    font-size: 13px;
+}
+
+/* Reason column */
+td.reason-cell {
+    min-width: 220px;
+    max-width: 330px;
+    white-space: normal;
+}
+
+/* 4. Validation result metrics */
+.result-metrics {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin: 15px 0;
+}
+
+.result-metrics p {
+    padding: 10px 14px;
+    margin: 0;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--panel);
+}
+
+/* Field-level errors */
+.result-box h4 {
+    margin-top: 20px;
+    color: #ff8b9e;
+}
+
+.result-box details {
+    margin-top: 15px;
+}
+
+.result-box summary {
+    cursor: pointer;
+    color: var(--purple-light);
+    font-weight: 600;
+}
+
+/* 5. Responsive layout */
+@media (max-width: 1050px) {
+    .stats {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 760px) {
+    .hero {
+        min-height: 0;
+        padding: 22px;
+    }
+
+    .hero-art {
+        opacity: 0.12;
+    }
+
+    .stats {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
